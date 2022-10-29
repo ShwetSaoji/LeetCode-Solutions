@@ -1,0 +1,19 @@
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+
+        dick = {}
+        for i in range(len(s)):
+            if s[i] in dick:
+                if dick[s[i]] != t[i]:
+                    return False
+            elif t[i] in dick.values():
+                key_list = list(dick.keys())
+                val_list = list(dick.values())
+                
+                pos = val_list.index(t[i])
+                if key_list[pos] != s[i]:
+                    return False
+            else:
+                dick[s[i]] = t[i]
+        
+        return True
