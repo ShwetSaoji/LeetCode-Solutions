@@ -7,9 +7,13 @@
 --     select distinct user_id from confirmations
 -- )
 
-select s.user_id, ROUND(AVG(if(c.action="confirmed",1,0)),2) as confirmation_rate
+select s.user_id, ROUND(AVG(CASE
+WHEN c.action="confirmed" THEN 1 ELSE 0
+END),2) as confirmation_rate
 from signups s
 left join 
 Confirmations c
 on s.user_id=c.user_id
 group by 1
+
+-- if(c.action="confirmed",1,0)
