@@ -7,13 +7,38 @@
 --     select distinct user_id from confirmations
 -- )
 
-select s.user_id, ROUND(AVG(CASE
-WHEN c.action="confirmed" THEN 1 ELSE 0
-END),2) as confirmation_rate
-from signups s
-left join 
-Confirmations c
-on s.user_id=c.user_id
-group by 1
+-- select s.user_id, ROUND(AVG(CASE
+-- WHEN c.action="confirmed" THEN 1 ELSE 0
+-- END),2) as confirmation_rate
+-- from signups s
+-- left join 
+-- Confirmations c
+-- on s.user_id=c.user_id
+-- group by 1
 
 -- if(c.action="confirmed",1,0)
+
+
+
+
+
+
+
+
+
+
+
+with CTE as (
+select *, 
+COUNT(user_id) as tot_tr,
+SUM(CASE WHEN action="confirmed" THEN 1 ELSE 0 END) as cf_tr
+from confirmations 
+group by user_id
+)
+
+select s.user_id, 
+ROUND(IFNULL(c.cf_tr/c.tot_tr, 0), 2) as confirmation_rate 
+from signups s 
+left join CTE c 
+on 
+s.user_id = c.user_id
