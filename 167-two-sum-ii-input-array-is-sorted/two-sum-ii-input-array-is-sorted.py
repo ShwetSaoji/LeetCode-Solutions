@@ -1,12 +1,15 @@
 class Solution:
     def twoSum(self, numbers: List[int], target: int) -> List[int]:
-        hmap = {}
+        l, r = 0, len(numbers) -1
 
-        for i, n in enumerate(numbers):
-            diff = target - n
-            if diff in hmap:
-                return [hmap[diff]+1, i+1]
+        while l < r:
+            diff = numbers[r] + numbers[l]
+            if diff == target:
+                return [l+1, r+1]
+            elif diff > target:
+                r -= 1
             else:
-                hmap[n] = i
+                l += 1
+        
         
         
