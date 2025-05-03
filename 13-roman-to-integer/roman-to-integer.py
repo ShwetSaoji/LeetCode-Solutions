@@ -1,12 +1,13 @@
 class Solution:
     def romanToInt(self, s: str) -> int:
-        hmap = {'I': 1, 'V':5, 'X': 10, 'L':50, 'C':100, 'D':500, 'M':1000}
-        ans = 0
+        hm = {'I': 1, 'V': 5, 'X':10, 'L':50, 'C': 100, 'D': 500, 'M': 1000}
 
-        for i in range(len(s)):
-            if i+1<len(s) and hmap[s[i]] < hmap[s[i+1]]:
-                ans -= hmap[s[i]]
+        ans = 0 
+
+        for i in range(len(s)-1):
+            if hm[s[i]] < hm[s[i+1]]:
+                ans -= hm[s[i]]
             else:
-                ans += hmap[s[i]]
-        
+                ans += hm[s[i]]
+        ans += hm[s[-1]]
         return ans
