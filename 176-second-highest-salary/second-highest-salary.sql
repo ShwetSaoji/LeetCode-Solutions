@@ -1,14 +1,11 @@
-with CTE as (
-    select *,
-    DENSE_RANK() OVER(order by salary desc) as rnk
-    from employee
-)
+# Write your MySQL query statement below
 
 
--- select * from CTE
-select 
-CASE 
-    WHEN max(rnk) < 2 THEN NULL
-    ELSE salary
-END as SecondHighestSalary
- from CTE where rnk = 2
+
+select (
+select distinct salary as salary 
+from Employee 
+order by salary desc 
+limit 1 offset 1 ) as SecondHighestSalary
+
+
