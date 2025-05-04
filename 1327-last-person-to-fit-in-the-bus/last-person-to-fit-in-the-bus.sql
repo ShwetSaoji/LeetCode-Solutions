@@ -1,33 +1,9 @@
--- with CTE as (
---     select person_name, 
---     SUM(weight) OVER(order by turn) as cum_weight
---     from queue
--- )
-
--- select person_name from CTE where cum_weight <= 1000
--- order by cum_weight DESC limit 1
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# Write your MySQL query statement below
 
 with CTE as (
-select person_name, 
-SUM(weight) OVER(ORDER BY turn) as tot_weight
-from Queue
-)
+select *, 
+SUM(weight) OVER(ORDER BY turn) as roll_weight
+from Queue)
 
-select person_name from CTE where tot_weight <= 1000
-order by tot_weight desc 
-limit 1
+select person_name from CTE where roll_weight <= 1000
+order by turn desc LIMIT 1
