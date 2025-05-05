@@ -1,18 +1,4 @@
--- # Write your MySQL query statement below
--- -- with CTE as (
--- --     select customer_id, count(distinct product_key) as products 
--- --     from customer
--- --     group by 1
--- -- )
+# Write your MySQL query statement below
 
--- -- select customer_id from CTE where products = (select count(*) from Product)
-
--- select customer_id from customer group by 1 having count(distinct product_key) = (select count(*) from Product)
-
-
-
-
-select customer_id from customer group by 1 having count(distinct(product_key)) = (select count(*) from Product)
-
-
-
+select customer_id from Customer group by 1
+having COUNT(DISTINCT product_key) = (select count(1) from product) 
