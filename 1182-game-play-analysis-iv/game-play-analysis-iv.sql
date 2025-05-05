@@ -2,14 +2,9 @@
 
 with CTE as (
 select *, 
-LEAD(event_date) OVER(PARTITION BY player_id ORDER BY event_date) as next_login,
-RANK() OVER(PARTITION BY player_id order by event_date) as rnk
+RANK() OVER(PARTITION BY player_id ORDER BY event_date) as rnk,
+LEAD(event_date) OVER(PARTITION BY player_id ORDER BY event_date) as next_login
 from Activity)
 
-select 
-ROUND((select count(distinct player_id) from CTE where DATEDIFF(next_login, event_date) = 1 and rnk=1)/
-(select count(distinct player_id) from Activity),2)
-as fraction
-
-
--- select DATEDIFF('2025-05-02', '2023-05-01')
+select ROUND((select COUNT(*) from CTE where rnk = 1 and DATEDIFF(next_login, event_date) = 1)/
+(select COUNT(DISTINCT player_id) from Activity),2) as fraction 
