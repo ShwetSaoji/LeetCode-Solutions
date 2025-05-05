@@ -1,43 +1,15 @@
--- # Write your MySQL query statement below
--- with CTE as (
---     select *,
---     LAG (id) OVER (order by id) as prev,
---     LEAD (id) OVER (order by id) as next
---     from seat
--- )
-
--- select if (id%2 = 0, prev, if (next is null, id, next)) as id,
--- student from CTE
--- order by 1
-
-
-
-
-
-
-
-
-
-
+# Write your MySQL query statement below
 
 with CTE as (
 select *, 
-LAG(student) OVER(ORDER BY id) as prev,
-LEAD(student) OVER(ORDER BY id) as nxt
-from Seat
-)
+LAG(student) OVER(ORDER BY id) as prev_student, 
+LEAD(student) OVER(ORDER BY id) as nxt_student
+from Seat)
 
 select id, 
-CASE 
-WHEN id%2<>0 and nxt is NULL THEN student
-WHEN id%2=0 THEN prev
-ELSE nxt
+CASE
+    WHEN id%2 = 1 and nxt_student is null THEN student
+    WHEN id%2 = 1 THEN nxt_student
+    ELSE prev_student
 END as student
 from CTE
-
-
-
-
-
-
-
