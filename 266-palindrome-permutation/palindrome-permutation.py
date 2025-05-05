@@ -1,14 +1,11 @@
 class Solution:
     def canPermutePalindrome(self, s: str) -> bool:
-        chars = set()
+        pair = set()
 
         for i in s:
-            if i in chars:
-                chars.remove(i)
+            if i in pair:
+                pair.remove(i)
             else:
-                chars.add(i)
-
-        return len(chars) <= 1
-
-
+                pair.add(i)
         
+        return len(pair) <= 1
