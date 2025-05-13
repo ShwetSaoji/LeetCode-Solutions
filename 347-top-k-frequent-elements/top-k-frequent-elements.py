@@ -5,13 +5,13 @@ class Solution:
         for i in nums:
             hashMap[i] = hashMap.get(i, 0) + 1
         
-        hashMap = dict(sorted(hashMap.items(), key=lambda i:i[1], reverse=True))
+        heap = []
 
-        ans = []
-        for i, v in hashMap.items():
-            if k <= 0:
-                break
-            else:
-                ans.append(i)
-                k -= 1
-        return ans 
+        for item, value in hashMap.items():
+            heapq.heappush(heap, (value, item))
+            if len(heap) > k:
+                heapq.heappop(heap)
+        res = []
+        for i in heap:
+            res.append(i[1])
+        return res
