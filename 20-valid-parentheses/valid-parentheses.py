@@ -1,17 +1,18 @@
 class Solution:
     def isValid(self, s: str) -> bool:
+        hashmap = {')':'(',']':'[','}':'{'}
+
         stack = []
-        hm = {'}':'{', ']':'[',')':'('}
 
         for i in s:
-            if i in '([{':
+            if i in '({[':
                 stack.append(i)
             else:
-                if stack:
-                    if stack.pop() != hm[i]:
-                        return False
-                else:
+                if not stack:
                     return False
+                if stack.pop() != hashmap[i]:
+                    return False
+                continue
         
         if stack:
             return False
