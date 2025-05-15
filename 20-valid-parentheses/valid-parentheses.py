@@ -14,7 +14,4 @@ class Solution:
                     return False
                 continue
         
-        if stack:
-            return False
-        else:
-            return True
+        return not stack
