@@ -1,23 +1,28 @@
 class Solution:
     def trap(self, height: List[int]) -> int:
-        maxLeft = []
+        maxLeft = [0] * len(height)
         maxRight = [0] * len(height)
-        minLeftRight = [0] * len(height)
-        mx = 0
 
+        mx = 0 
         for i in range(len(height)):
-            mx = max(mx, height[i])
-            maxLeft.append(mx)
-        mx = 0
-        for i in range(len(height)-1,-1,-1):
-            mx = max(mx, height[i])
-            maxRight[i] = mx
-            minLeftRight[i] = min(maxRight[i], maxLeft[i])
+            if height[i] > mx:
+                maxLeft[i] = height[i]
+                mx = height[i]
+            else:
+                maxLeft[i] = mx
+        
+        mx = 0 
+
+        for i in range(len(height)-1, -1, -1):
+            if height[i] > mx:
+                maxRight[i] = height[i]
+                mx = height[i]
+            else:
+                maxRight[i] = mx
         
         ans = 0 
 
         for i in range(len(height)):
-            if minLeftRight[i] - height[i] > 0:
-                ans += minLeftRight[i] - height[i]
+            ans = ans + min(maxLeft[i], maxRight[i]) - height[i]
+        
         return ans
-
