@@ -4,9 +4,9 @@ class Solution:
         stack = []
 
         for p, s in cars:
-            if stack and (target - p)/s <= stack[-1]:
+            if stack and (target-p)/s <= stack[-1]:
                 continue
             else:
-                stack.append((target - p)/s)
-        
+                stack.append((target-p)/s)
+
         return len(stack)
