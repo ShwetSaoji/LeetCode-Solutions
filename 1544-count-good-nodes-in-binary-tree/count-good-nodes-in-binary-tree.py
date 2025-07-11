@@ -6,15 +6,16 @@
 #         self.right = right
 class Solution:
     def goodNodes(self, root: TreeNode) -> int:
-        self.ans = 0 
-        self.preorder(root, root.val)
-        return self.ans
-    def preorder(self, root, max_val):
-        if not root:
-            return
-        if root.val >= max_val:
-            self.ans += 1
-        max_val = max(max_val, root.val)
-        self.preorder(root.left, max_val)
-        self.preorder(root.right, max_val)
-    
+        self.res = 0 
+        # self.max_val = 0 
+        def isgood(node, max_val):
+            if not node:
+                return
+            if node.val >= max_val:
+                self.res += 1
+            max_val = max(max_val, node.val)
+            isgood(node.left, max_val)
+            isgood(node.right, max_val)
+
+        isgood(root, root.val)
+        return self.res
