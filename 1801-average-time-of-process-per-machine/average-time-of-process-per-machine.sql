@@ -14,22 +14,47 @@
 
 
 
+-- with CTE as (
+-- select a1.machine_id, a1.process_id, ROUND((a1.timestamp - a2.timestamp),3) as pro_time
+-- from Activity a1
+-- join 
+-- Activity a2 on
+-- a1.machine_id = a2.machine_id and
+-- a1.process_id = a2.process_id and
+-- -- a1.activity_type = "start" and
+-- -- a2.activity_type = "end"
+-- a1.activity_type <> a2.activity_type
+-- group by 1, 2
+-- )
+
+-- select machine_id, 
+-- ROUND(SUM(pro_time)/(select count(distinct process_id) from Activity), 3) as processing_time
+-- from CTE 
+-- group by 1
+
+
+
+
+
+
+
+
+
+
+
+
+
 with CTE as (
-select a1.machine_id, a1.process_id, ROUND((a2.timestamp - a1.timestamp),3) as pro_time
-from Activity a1
-join 
-Activity a2 on
-a1.machine_id = a2.machine_id and
-a1.process_id = a2.process_id and
-a1.activity_type = "start" and
-a2.activity_type = "end"
-group by 1, 2
+    select a1.machine_id, a1.process_id, a2.timestamp - a1.timestamp as pro_time
+    from Activity a1
+    inner join 
+    Activity a2
+    on a1.machine_id = a2.machine_id
+    and a1.process_id = a2.process_id 
+    and a1.activity_type = 'start'
+    and a2.activity_type = 'end'  
 )
 
-select machine_id, 
-ROUND(SUM(pro_time)/(select count(distinct process_id) from Activity), 3) as processing_time
+select machine_id, ROUND(AVG(pro_time),3) as processing_time 
 from CTE 
 group by 1
-
-
-
