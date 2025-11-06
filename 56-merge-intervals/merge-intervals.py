@@ -12,3 +12,6 @@ class Solution:
                 new_end = max(res[-1][1], intervals[i][1])
                 res[-1] = [new_start, new_end]
         return res
+
+        # for i in range(len(intervals)):
+            
