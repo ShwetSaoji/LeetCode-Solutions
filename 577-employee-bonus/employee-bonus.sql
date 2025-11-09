@@ -1,9 +1,40 @@
--- select e.name, b.bonus from 
--- employee e
--- left join 
--- bonus b
+-- -- select e.name, b.bonus from 
+-- -- employee e
+-- -- left join 
+-- -- bonus b
+-- -- on e.empId = b.empId
+-- -- where b.bonus < 1000 or b.bonus is null
+
+
+
+
+
+
+
+
+-- -- select e.name, b.bonus from 
+-- -- Employee e 
+-- -- left join 
+-- -- bonus b 
+-- -- on e.empId = b.empId 
+-- -- where b.bonus < 1000
+-- -- or b.bonus is null
+
+
+
+
+
+
+
+
+
+
+-- select e.name, b.bonus 
+-- from Employee e
+-- left join Bonus b 
 -- on e.empId = b.empId
--- where b.bonus < 1000 or b.bonus is null
+-- where b.bonus < 1000
+-- or b.bonus is null
 
 
 
@@ -12,10 +43,13 @@
 
 
 
-select e.name, b.bonus from 
-Employee e 
+
+
+
+
+select e.name, b.bonus
+from Employee e
 left join 
 bonus b 
-on e.empId = b.empId 
-where b.bonus < 1000
-or b.bonus is null
+on e.empid = b.empid
+where b.bonus < 1000 or b.bonus is null
