@@ -1,19 +1,11 @@
 # Write your MySQL query statement below
-
-with CTE as (
-select p.*, c.name as country from 
-Person p 
-inner join 
-country c 
-on SUBSTRING(p.phone_number, 1, 3) = c.country_code),
-CTE2 as (
-select c.country, AVG(ca.duration) as cntry_avg
-from CTE c 
-inner join 
-calls  ca
-on c.id = ca.caller_id or c.id = ca.callee_id
-group by 1)
-
-select country from CTE2 where cntry_avg > (select AVG(duration) from calls)
-
--- select AVG(duration) from calls
+# Write your MySQL query statement below
+SELECT c.name AS country
+FROM Country c
+JOIN Person p
+ON c.country_code = LEFT(p.phone_number, 3)
+JOIN Calls cl
+ON p.id = cl.caller_id OR p.id = cl.callee_id
+GROUP BY c.name
+HAVING AVG(duration) > (SELECT AVG(duration)
+                        FROM Calls)
