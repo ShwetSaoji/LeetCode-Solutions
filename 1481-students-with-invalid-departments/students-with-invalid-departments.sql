@@ -1,4 +1,6 @@
 # Write your MySQL query statement below
-select id, name from Students where department_id not in (
-    select id from departments
-)
+select s.id, s.name from Students s 
+left join 
+Departments d
+on s.department_id = d.id 
+where d.name is NULL
