@@ -5,10 +5,14 @@ class Solution:
 
         for i in nums:
             hmap[i] = 1 + hmap.get(i, 0)
-        
-        hmap = sorted(hmap.items(), key=lambda i : i[1], reverse=True)[:k]
-        # print(hmap)
-        for i in hmap:
-            ans.append(i[0])
+        print(hmap)
+        heap = []
+        for num in hmap.keys():
+            heapq.heappush(heap, [hmap[num], num])
+            if len(heap) > k:
+                heapq.heappop(heap)
+        print(heap)
+        for _ in range(len(heap)):
+            ans.append(heapq.heappop(heap)[1])
         
         return ans
