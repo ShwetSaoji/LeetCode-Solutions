@@ -5,12 +5,13 @@ class Solution:
 
         while l <= r:
             mid = (l+r)//2
-            res = min(res, nums[mid])
+            
 
             if nums[mid] >= nums[l]:
                 res = min(res, nums[l])
                 l = mid + 1
             else:
+                res = min(res, nums[mid])
                 r = mid - 1
                 
         return res
